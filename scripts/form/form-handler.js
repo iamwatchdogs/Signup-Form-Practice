@@ -1,5 +1,5 @@
-import { addToCookies, addToLocalStorage } from "@scripts/storage-api";
-import updateTheExternalFile from "@scripts/save-to-external-file";
+import { addToCookies, addToLocalStorage } from "@storage/storage-api";
+import updateTheExternalFile from "@external/save-to-external-file";
 
 export default function handleSubmission(event) {
   // preventing default behavior
