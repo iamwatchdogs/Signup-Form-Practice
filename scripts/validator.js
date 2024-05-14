@@ -1,4 +1,10 @@
-export default function validator(event) {
+export function initializeValidator(formElement) {
+  Object.values(formElement).forEach((elem) => {
+    if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
+  });
+}
+
+export function inputValidator(event) {
   // validation for Texting input
   function inputTextValidator(value, errorMessages) {
     if (value.trim().length === 0)
