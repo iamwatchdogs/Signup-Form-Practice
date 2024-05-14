@@ -1,4 +1,5 @@
 const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 let configs = {
   entry: {
@@ -8,6 +9,11 @@ let configs = {
     path: path.resolve(__dirname, "dist"),
     filename: "index.bundle.js",
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./public/index.html",
+    }),
+  ],
   resolve: {
     alias: {
       "@validation": path.resolve(__dirname, "./scripts/validation"),
