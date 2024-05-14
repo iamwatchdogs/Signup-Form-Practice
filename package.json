@@ -1,0 +1,11 @@
+{
+  "name": "signup-form-practise",
+  "version": "1.0.0",
+  "description": "Reworking on my signup-form",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Shamith",
+  "license": "ISC"
+}
