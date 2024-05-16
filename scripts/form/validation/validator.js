@@ -1,76 +1,111 @@
-export function initializeValidator(formElement) {
-  Object.values(formElement).forEach((elem) => {
-    if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
-  });
-}
+export class Validator {
+  static initializeValidator(formElement) {
+    Object.values(formElement).forEach((elem) => {
+      if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
+    });
+  }
 
-export function inputValidator(event) {
-  // validation for Texting input
-  function inputTextValidator(value, errorMessages) {
+  constructor(element, passwordElement) {
+    this._targetElement = element;
+    this._passwordElement = passwordElement;
+    this._errorMessages = [];
+  }
+
+  #reinitializeErrorMessages() {
+    this._errorMessages = [];
+  }
+
+  textValidator() {
+    const value = this._targetElement.value;
     if (value.trim().length === 0)
-      errorMessages.push("Please enter proper value.");
+      this._errorMessages.push("Please enter proper value.");
   }
 
-  // validation for Password input
-  function inputPasswordValidator(value, errorMessages) {
-    if (!/[A-Z]/.test(value)) {
-      errorMessages.push("One uppercase character");
-    }
-    if (!/[a-z]/.test(value)) {
-      errorMessages.push("One lowercase character");
-    }
-    if (!/[0-9]/.test(value)) {
-      errorMessages.push("One numerical value");
-    }
-    if (!/[!@#$%^&]/.test(value)) {
-      errorMessages.push("One special character");
-    }
-    if (value.length < 8) {
-      errorMessages.push("Minimum of 8 characters");
-    }
-    if (value.length > 32) {
-      errorMessages.push("Exceeded max characters limit");
-    }
-  }
-
-  // validation for Email input
-  function inputEmailValidator(value, errorMessages) {
+  emailValidator() {
+    const value = this._targetElement.value;
     const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!EMAIL_PATTERN.test(value)) {
-      errorMessages.push("Please enter proper email.");
+      this._errorMessages.push("Please enter proper email.");
     }
   }
 
-  // validation for matching repeated password
-  function isRepeatedPasswordMatched(value, errorMessages) {
-    if (password.value !== value) {
-      errorMessages.push("Your password doesn't match.");
+  checkboxValidator() {
+    if (!this._targetElement.checked)
+      this._errorMessages.push("Please accept the Terms.");
+  }
+
+  passwordValidator() {
+    const value = this._targetElement.value;
+    if (!/[A-Z]/.test(value)) {
+      this._errorMessages.push("One uppercase character");
+    }
+    if (!/[a-z]/.test(value)) {
+      this._errorMessages.push("One lowercase character");
+    }
+    if (!/[0-9]/.test(value)) {
+      this._errorMessages.push("One numerical value");
+    }
+    if (!/[!@#$%^&]/.test(value)) {
+      this._errorMessages.push("One special character");
+    }
+    if (value.length < 8) {
+      this._errorMessages.push("Minimum of 8 characters");
+    }
+    if (value.length > 32) {
+      this._errorMessages.push("Exceeded max characters limit");
     }
   }
 
-  const targetElement = event.target;
-  const errorMessages = [];
-
-  switch (targetElement.type) {
-    case "text":
-      inputTextValidator(targetElement.value, errorMessages);
-      break;
-    case "email":
-      inputEmailValidator(targetElement.value, errorMessages);
-      break;
-    case "password":
-      inputPasswordValidator(targetElement.value, errorMessages);
-      if (targetElement.name === "repeat-password")
-        isRepeatedPasswordMatched(targetElement.value, errorMessages);
-      break;
-    case "checkbox":
-      if (!targetElement.checked)
-        errorMessages.push("Please accept the Terms.");
-      break;
+  isRepeatedPasswordMatched() {
+    if (this._passwordElement) {
+      throw new Error(
+        "Required a password before comparing it to other password element."
+      );
+    }
+    const currentValue = this._targetElement.value;
+    if (actualPassword.value !== currentValue) {
+      this._errorMessages.push("Your password doesn't match.");
+    }
   }
 
-  targetElement.setCustomValidity(
-    errorMessages.length !== 0 ? `${errorMessages.join(", ")}` : ""
-  );
-  targetElement.reportValidity();
+  #_collectFailedValidations() {
+    const type = this._targetElement.type;
+    this.#reinitializeErrorMessages();
+    switch (type) {
+      case "text":
+        this.textValidator();
+        break;
+      case "email":
+        this.emailValidator();
+        break;
+      case "password":
+        this.passwordValidator();
+        if (this._targetElement.name.includes("repeat")) {
+          this.isRepeatedPasswordMatched();
+        }
+      case "checkbox":
+        this.checkboxValidator();
+        break;
+      default:
+        throw new TypeError("Invalid input type found!");
+    }
+  }
+
+  #setCustomValidity() {
+    this._targetElement.setCustomValidity(
+      this._errorMessages.length !== 0
+        ? `${this._errorMessages.join(", ")}`
+        : ""
+    );
+  }
+
+  dispatchValidator() {
+    this._targetElement.reportValidity();
+  }
+
+  evaluate() {
+    this.#_collectFailedValidations();
+    this.#setCustomValidity();
+    this.dispatchValidator();
+  }
 }
