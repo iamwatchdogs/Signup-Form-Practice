@@ -1,12 +1,5 @@
-class PasswordHasher {
-  constructor() {
-    if (!PasswordHasher.instance) {
-      PasswordHasher.instance = this;
-    }
-    return PasswordHasher.instance;
-  }
-
-  async hashPassword(password) {
+export class PasswordHasher {
+  static async hashPassword(password) {
     const msgUint8 = new TextEncoder().encode(password);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
@@ -16,7 +9,7 @@ class PasswordHasher {
     return hashedPassword;
   }
 
-  async hashAllPasswords(dataEntries) {
+  static async hashAllPasswords(dataEntries) {
     let passwordHasherList = dataEntries.map(async ([key, value]) => {
       if (key.includes("password")) {
         value = await this.hashPassword(value);
@@ -28,5 +21,3 @@ class PasswordHasher {
     return Object.fromEntries(hashedPasswordEntries);
   }
 }
-
-export default new PasswordHasher();

@@ -5,11 +5,11 @@ export class StorageHandler {
     if(!data || Object.entries(data).length === 0){
       throw Error("Require data to create an instance of StorageHandler");
     }
-    this.dataEntries = Object.entries(data);
+    this._dataEntries = Object.entries(data);
   }
 
   addToCookies() {
-    this.dataEntries
+    this._dataEntries
       .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
       .forEach((value) => (document.cookie = value));
     alert(`Updated Cookies: ${document.cookie}`);
@@ -22,7 +22,7 @@ export class StorageHandler {
 
   addToLocalStorage() {
     const dataWithHashedPasswords = PasswordHasher.hashAllPasswords(
-      this.dataEntries
+      this._dataEntries
     );
     const inputDataStringified = JSON.stringify(dataWithHashedPasswords);
     if (this.#_compareWithCurrentLocalStorage(inputDataStringified)) {
