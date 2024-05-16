@@ -30,7 +30,7 @@ let configs = {
   ],
   resolve: {
     alias: {
-      "@validation": path.resolve(__dirname, "./scripts/validation"),
+      "@validation": path.resolve(__dirname, "./scripts/form/validation"),
       "@form": path.resolve(__dirname, "./scripts/form"),
       "@storage": path.resolve(__dirname, "./scripts/storage"),
       "@external": path.resolve(__dirname, "./scripts/external"),
