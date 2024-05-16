@@ -7,7 +7,7 @@ class FormEvent{
 
 class SubmitEvent{
     constructor(operations) {
-        this._eventName = 'submit;'
+        this._eventName = 'submit';
         this._operations = operations;
     }
     get eventName(){
@@ -25,5 +25,17 @@ class SubmitEvent{
     callback(event){
         const data = this.#extractData(event);
         this.#batchExecutor(data);
+    }
+}
+
+class InputEvent{
+    constructor(operations) {
+        this._eventName = 'input';
+        this._operations = operations;
+    }
+    get eventName(){
+        return this._eventName;
+    }
+    callback(event){
     }
 }
