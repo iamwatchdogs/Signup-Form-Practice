@@ -1,4 +1,4 @@
-export class Validator {
+export default class Validator {
   static initializeValidator(formElement) {
     Object.values(formElement).forEach((elem) => {
       if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
