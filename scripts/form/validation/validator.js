@@ -1,10 +1,4 @@
-export default class Validator {
-  static initializeValidator(formElement) {
-    Object.values(formElement).forEach((elem) => {
-      if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
-    });
-  }
-
+class Validator {
   constructor(element, passwordElement) {
     this._targetElement = element;
     this._passwordElement = passwordElement;
@@ -108,4 +102,18 @@ export default class Validator {
     this.#setCustomValidity();
     this.dispatchValidator();
   }
+}
+
+export function initializeValidator(formElement) {
+  Object.values(formElement).forEach((elem) => {
+    if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
+  });
+}
+
+export function validateOnEvent(passwordElement) {
+  return (event) => {
+    const targetElement = event.targetElement;
+    const validator = new Validator(targetElement, passwordElement);
+    validator.evaluate();
+  };
 }
