@@ -42,7 +42,7 @@ class FormHandler {
   }
 }
 
-class FormEventHandler extends FormHandler{
+export class FormEventHandler extends FormHandler{
   constructor(formElement){
     super(formElement);
     this._eventCallbackList = [];
