@@ -77,6 +77,7 @@ class Validator {
         if (this._targetElement.name.includes("repeat")) {
           this.isRepeatedPasswordMatched();
         }
+        break;
       case "checkbox":
         this.checkboxValidator();
         break;
