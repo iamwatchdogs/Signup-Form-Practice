@@ -5,11 +5,11 @@ class Validator {
     this._errorMessages = [];
   }
 
-  getTargetElement(){
+  getTargetElement() {
     return this._targetElement;
   }
 
-  getPasswordElement(){
+  getPasswordElement() {
     return this._passwordElement;
   }
 
@@ -118,9 +118,11 @@ class Validator {
 }
 
 export function initializeValidator(formElement) {
-  Object.values(formElement).forEach((elem) => {
-    if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
-  });
+  Object.values(formElement)
+    .filter((elem) => elem.type !== "submit")
+    .forEach((elem) => {
+      if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
+    });
 }
 
 export function validateOnEvent(passwordElement) {
