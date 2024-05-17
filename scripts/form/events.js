@@ -12,7 +12,7 @@ class FormEvent {
     );
   }
   callback = (event) => {
-    this.batchExecutor();
+    this.batchExecutor(event);
   }
 }
 
