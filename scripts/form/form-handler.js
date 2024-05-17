@@ -15,6 +15,14 @@ class FormHandler {
   //   });
   // }
 
+  getInitialFormSchemas() {
+    return this._formSchemas;
+  }
+
+  getFormElement() {
+    return this._formElement;
+  }
+
   getFormSchemas() {
     const schematicDictionary = Object.values(this._formElement)
       .filter((item) => item.name)
@@ -23,17 +31,22 @@ class FormHandler {
   }
 
   getFormData() {
-    const formData = new FormData(this._formElement);
-    const data = Object.fromEntries(formData);
+    const data = Object.values(this._formElement).map((element) => {
+      if (element.type === "submit") return;
+      return element.value;
+    });
     return data;
   }
 
   validateSchemas(targetElement) {
-    const actualSchemas = JSON.stringify(this._formSchemas);
-    const targetSchemas = JSON.stringify(
-      new FormHandler(targetElement).getFormData()
-    );
-    if (actualSchemas !== targetSchemas) {
+    const initalSchemas = this.getInitialFormSchemas();
+    const currentSchemas = new FormHandler(
+      targetElement.closest("form")
+    ).getFormSchemas();
+
+    const isInvalid =
+      JSON.stringify(initalSchemas) !== JSON.stringify(currentSchemas);
+    if (isInvalid) {
       const message =
         "The form structure does not match the inital one. Please refresh and try again !!!...";
       alert(message);
@@ -42,8 +55,8 @@ class FormHandler {
   }
 }
 
-export class FormEventHandler extends FormHandler{
-  constructor(formElement){
+export class FormEventHandler extends FormHandler {
+  constructor(formElement) {
     super(formElement);
     this._eventCallbackList = [];
   }
@@ -52,15 +65,18 @@ export class FormEventHandler extends FormHandler{
     const wrapper = (event) => {
       event.preventDefault();
       super.validateSchemas(event.target);
-      callback(event);
+      return callback(event);
     };
     return wrapper;
   }
 
-  addEventListener({eventName, action}) {
-    const wrappedCallback = this.#eventCallBackwrapper(action);
-    super._formElement.addEventListener(eventName, wrappedCallback);
-    this._eventCallbackList.push({ name: eventName, callback: wrappedCallback });
+  addEventListener({ eventName, callback }) {
+    const wrappedCallback = this.#eventCallBackwrapper(callback);
+    super.getFormElement().addEventListener(eventName, wrappedCallback);
+    this._eventCallbackList.push({
+      name: eventName,
+      callback: wrappedCallback,
+    });
   }
 
   removeEventListener(eventType) {
@@ -73,7 +89,6 @@ export class FormEventHandler extends FormHandler{
       (eventCallback) => eventCallback.name !== eventType
     );
   }
-
 }
 
 // --- Old Implementation ---
