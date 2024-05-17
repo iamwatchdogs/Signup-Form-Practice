@@ -1,4 +1,4 @@
-export class PasswordHasher {
+export default class PasswordHasher {
   static async hashPassword(password) {
     const msgUint8 = new TextEncoder().encode(password);
     const hashBuffer = await crypto.subtle.digest("SHA-256", msgUint8);

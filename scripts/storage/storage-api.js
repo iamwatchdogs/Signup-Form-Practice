@@ -1,4 +1,4 @@
-import PasswordHasher from "./secure-password";
+import PasswordHasher from "@storage/secure-password";
 
 export function addToCookies(data) {
   if (!data) {
