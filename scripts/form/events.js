@@ -1,41 +1,55 @@
-class FormEvent{
-    constructor({eventName, callback}){
-        this.eventName = eventName;
-        this.action = callback;
+class FormEventList {
+  constructor(eventsList) {
+    this._eventsList = [];
+    eventsList.forEach((event) => this.pushEvent(event));
+  }
+  pushEvent(event) {
+    if (!event.eventName || !event.callback) {
+      throw new TypeError("tried to push invalid event object");
     }
+    this._eventsList.push(event);
+  }
+  forEach(callback) {
+    this._eventsList.forEach(callback);
+  }
 }
 
-class SubmitEvent{
-    constructor(operations) {
-        this._eventName = 'submit';
-        this._operations = operations;
-    }
-    get eventName(){
-        return this._eventName;
-    }
-    #extractData(event){
-        const targetElement = event.target;
-        const formData = new FormData(targetElement);
-        const data = Object.fromEntries(formData);
-        return data;
-    }
-    #batchExecutor(data){
-        this._operations.forEach(operation => operation(data));
-    }
-    callback(event){
-        const data = this.#extractData(event);
-        this.#batchExecutor(data);
-    }
+class FormEvent {
+  constructor(eventName, operations) {
+    this._eventName = eventName;
+    this._operations = operations;
+  }
+  get eventName() {
+    return this._eventName;
+  }
+  batchExecutor(data) {
+    this._operations.forEach((operation) =>
+      data ? operation(data) : operation()
+    );
+  }
+  callback(event) {
+    this.batchExecutor();
+  }
 }
 
-class InputEvent{
-    constructor(operations) {
-        this._eventName = 'input';
-        this._operations = operations;
-    }
-    get eventName(){
-        return this._eventName;
-    }
-    callback(event){
-    }
+class SubmitEvent extends FormEvent {
+  constructor(operations) {
+    super("submit", operations);
+  }
+  #extractData(event) {
+    const targetElement = event.target;
+    const formData = new FormData(targetElement);
+    const data = Object.fromEntries(formData);
+    return data;
+  }
+  callback(event) {
+    const data = this.#extractData(event);
+    super.batchExecutor(data);
+  }
+}
+
+class InputEvent extends FormEvent {
+  constructor(operations) {
+    super("input", operations);
+  }
 }
