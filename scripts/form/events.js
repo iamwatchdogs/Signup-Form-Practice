@@ -1,19 +1,3 @@
-class FormEventList {
-  constructor(eventsList) {
-    this._eventsList = [];
-    eventsList.forEach((event) => this.pushEvent(event));
-  }
-  pushEvent(event) {
-    if (!event.eventName || !event.callback) {
-      throw new TypeError("tried to push invalid event object");
-    }
-    this._eventsList.push(event);
-  }
-  forEach(callback) {
-    this._eventsList.forEach(callback);
-  }
-}
-
 class FormEvent {
   constructor(eventName, operations) {
     this._eventName = eventName;
@@ -32,7 +16,7 @@ class FormEvent {
   }
 }
 
-class SubmitEvent extends FormEvent {
+export class SubmitEvent extends FormEvent {
   constructor(operations) {
     super("submit", operations);
   }
@@ -48,8 +32,24 @@ class SubmitEvent extends FormEvent {
   }
 }
 
-class InputEvent extends FormEvent {
+export class InputEvent extends FormEvent {
   constructor(operations) {
     super("input", operations);
+  }
+}
+
+export class FormEventList {
+  constructor(eventsList) {
+    this._eventsList = [];
+    eventsList.forEach((event) => this.pushEvent(event));
+  }
+  pushEvent(event) {
+    if (!event.eventName || !event.callback) {
+      throw new TypeError("tried to push invalid event object");
+    }
+    this._eventsList.push(event);
+  }
+  forEach(callback) {
+    this._eventsList.forEach(callback);
   }
 }
