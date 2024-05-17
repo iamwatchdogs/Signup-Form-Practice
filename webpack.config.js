@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 let configs = {
   entry: {
@@ -35,6 +36,16 @@ let configs = {
       "@storage": path.resolve(__dirname, "./scripts/storage"),
       "@external": path.resolve(__dirname, "./scripts/external"),
     },
+  },
+  optimization: {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        exclude: /node_modules/,
+        parallel: true,
+      }),
+    ],
   },
 };
 
