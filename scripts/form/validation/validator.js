@@ -115,7 +115,7 @@ export function initializeValidator(formElement) {
 
 export function validateOnEvent(passwordElement) {
   return (event) => {
-    const targetElement = event.targetElement;
+    const targetElement = event.target;
     const validator = new Validator(targetElement, passwordElement);
     validator.evaluate();
   };
