@@ -5,6 +5,14 @@ class Validator {
     this._errorMessages = [];
   }
 
+  getTargetElement(){
+    return this._targetElement;
+  }
+
+  getPasswordElement(){
+    return this._passwordElement;
+  }
+
   #reinitializeErrorMessages() {
     this._errorMessages = [];
   }
@@ -51,13 +59,14 @@ class Validator {
   }
 
   isRepeatedPasswordMatched() {
-    if (this._passwordElement) {
+    const passwordElement = this.getPasswordElement();
+    if (!passwordElement) {
       throw new Error(
         "Required a password before comparing it to other password element."
       );
     }
-    const currentValue = this._targetElement.value;
-    if (actualPassword.value !== currentValue) {
+    const currentValue = this.getTargetElement();
+    if (passwordElement.value !== currentValue.value) {
       this._errorMessages.push("Your password doesn't match.");
     }
   }
