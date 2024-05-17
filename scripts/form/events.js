@@ -11,7 +11,7 @@ class FormEvent {
       data ? operation(data) : operation()
     );
   }
-  callback(event) {
+  callback = (event) => {
     this.batchExecutor();
   }
 }
@@ -26,7 +26,7 @@ export class SubmitEvent extends FormEvent {
     const data = Object.fromEntries(formData);
     return data;
   }
-  callback(event) {
+  callback = (event) => {
     const data = this.#extractData(event);
     super.batchExecutor(data);
   }
