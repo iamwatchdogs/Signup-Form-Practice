@@ -80,6 +80,9 @@ class Validator {
       case "checkbox":
         this.checkboxValidator();
         break;
+      case "submit":
+        this.#reinitializeErrorMessages();
+        break;
       default:
         throw new TypeError("Invalid input type found!");
     }
