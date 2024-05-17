@@ -10,7 +10,7 @@ export function addToCookies(data) {
   alert(`Updated Cookies: ${document.cookie}`);
 }
 
-export function addToLocalStorage(data) {
+export async function addToLocalStorage(data) {
   if (!data) {
     throw new Error("invalid data object");
   }
@@ -21,7 +21,7 @@ export function addToLocalStorage(data) {
   }
 
   const dataEntries = Object.entries(data);
-  const dataWithHashedPasswords = PasswordHasher.hashAllPasswords(dataEntries);
+  const dataWithHashedPasswords = await PasswordHasher.hashAllPasswords(dataEntries);
 
   const inputDataStringified = JSON.stringify(dataWithHashedPasswords);
   if (compareWithCurrent(inputDataStringified)) {
