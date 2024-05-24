@@ -1,11 +1,11 @@
 {
   "name": "signup-form-practise",
-  "version": "1.0.0",
-  "description": "Reworking on my signup-form",
+  "version": "2.0.0",
+  "description": "Migrating my initial solution to React",
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Shamith",
+  "author": "shamith",
   "license": "ISC"
 }
