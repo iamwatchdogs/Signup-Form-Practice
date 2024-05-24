@@ -3,11 +3,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
-  entry: './src/main.jsx',
+  entry: path.join(__dirname, "src", "main.jsx"),
   output: {
-    path: path.join(__dirname, "/dist"),
+    path: path.join(__dirname, "dist"),
     filename: "index.bundle.js",
-    // publicPath: "/dist/",
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx'],
   },
   module: {
     rules: [
@@ -16,6 +18,9 @@ module.exports = {
         exclude: /node_modules/,
         use: {
           loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+          },
         },
       },
       {
@@ -35,24 +40,26 @@ module.exports = {
     }),
   ],
   optimization: {
+    usedExports: true,
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
-        exclude: /node_modules/,
+        test: /\.js|jsx(\?.*)?$/i,
+        exclude: /\/node_modules/,
         parallel: true,
+        terserOptions: {
+          compress: true,
+        },
       }),
     ],
-    usedExports: true,
   },
   devServer: {
     port: 3000,
     compress: true,
-    // static: {
-    //   directory: path.join(__dirname),
-    //   publicPath: "/",
-    // },
-    contentBase: './dist'
+    static: {
+      publicPath: "./dist/",
+      watch: true
+    },
+    open: true
   },
-  devtool: "source-map",
 };
