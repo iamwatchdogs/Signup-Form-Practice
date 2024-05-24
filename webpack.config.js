@@ -9,7 +9,7 @@ module.exports = {
     filename: "index.bundle.js",
   },
   resolve: {
-    extensions: ['*', '.js', '.jsx'],
+    extensions: ["*", ".js", ".jsx"],
   },
   module: {
     rules: [
@@ -44,7 +44,6 @@ module.exports = {
     minimize: true,
     minimizer: [
       new TerserPlugin({
-        test: /\.js|jsx(\?.*)?$/i,
         exclude: /\/node_modules/,
         parallel: true,
         terserOptions: {
@@ -56,10 +55,11 @@ module.exports = {
   devServer: {
     port: 3000,
     compress: true,
+    open: true,
+    hot: true,
     static: {
       publicPath: "./dist/",
-      watch: true
+      watch: true,
     },
-    open: true
   },
 };
