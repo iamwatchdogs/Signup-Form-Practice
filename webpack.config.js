@@ -3,9 +3,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
+  entry: './src/main.jsx',
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "index.bundle.js",
+    // publicPath: "/dist/",
   },
   module: {
     rules: [
@@ -29,7 +31,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: "src/index.html",
+      template: "./index.html",
     }),
   ],
   optimization: {
@@ -45,5 +47,12 @@ module.exports = {
   },
   devServer: {
     port: 3000,
+    compress: true,
+    // static: {
+    //   directory: path.join(__dirname),
+    //   publicPath: "/",
+    // },
+    contentBase: './dist'
   },
+  devtool: "source-map",
 };
