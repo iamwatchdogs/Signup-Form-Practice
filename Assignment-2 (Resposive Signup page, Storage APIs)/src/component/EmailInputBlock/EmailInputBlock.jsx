@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 export default function EmailInputBlock({
   blockId,
@@ -7,6 +7,24 @@ export default function EmailInputBlock({
   placeholder,
   tabIndex,
 }) {
+  const [value, setValue] = useState("");
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const currentElement = ref.current;
+    let errorMessage = "";
+    const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if(value.trim().length === 0){
+      errorMessage = "Please fill out this field";
+    } else if (!value.includes("@")) {
+      errorMessage = `Please include an @ in your email. "${value}" doesn't have an @`;
+    } else if (!EMAIL_PATTERN.test(value)) {
+      errorMessage = "Please enter a valid email.";
+    }
+    currentElement.setCustomValidity(errorMessage);
+    currentElement.reportValidity();
+  }, [value]);
+
   return (
     <div id={blockId} className="input-label-block">
       <label htmlFor={inputId}>{labelName}</label>
@@ -14,6 +32,9 @@ export default function EmailInputBlock({
         type="email"
         name={inputId}
         id={inputId}
+        ref={ref}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
         placeholder={placeholder}
         tabIndex={tabIndex}
         autoComplete="off"
