@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import InputElementBlock from "../InputElementBlock/InputElementBlock";
 
 export default function PasswordInputBlock({
   blockId,
@@ -7,7 +8,7 @@ export default function PasswordInputBlock({
   placeholder,
   tabIndex,
   fromParentRef,
-  passwordRef
+  passwordRef,
 }) {
   const [value, setValue] = useState("");
   const ref = fromParentRef || useRef(null);
@@ -19,8 +20,11 @@ export default function PasswordInputBlock({
   }, [value]);
 
   return (
-    <div id={blockId} className="input-label-block">
-      <label htmlFor={inputId}>{labelName}</label>
+    <InputElementBlock
+      blockId={blockId}
+      inputId={inputId}
+      labelName={labelName}
+    >
       <input
         type="password"
         name={inputId}
@@ -34,19 +38,19 @@ export default function PasswordInputBlock({
         autoComplete="off"
         required
       />
-    </div>
+    </InputElementBlock>
   );
 }
 
 function getErrorMessage(value, passwordRef) {
-  if(passwordRef && passwordRef.current) {
-    if(passwordRef.current.value !== value) {
+  if (passwordRef && passwordRef.current) {
+    if (passwordRef.current.value !== value) {
       return "The Password doesn't match";
     }
     return "";
   }
 
-  if(value.length === 0) {
+  if (value.length === 0) {
     return "Please fill out this field";
   } else if (!/[A-Z]/.test(value)) {
     return "Password requires a Uppercase letter";

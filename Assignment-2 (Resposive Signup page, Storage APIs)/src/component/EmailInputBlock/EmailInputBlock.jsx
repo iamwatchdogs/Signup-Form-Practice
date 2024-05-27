@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
+import InputElementBlock from "../InputElementBlock/InputElementBlock";
 
 export default function EmailInputBlock({
   blockId,
@@ -17,8 +18,11 @@ export default function EmailInputBlock({
   }, [value]);
 
   return (
-    <div id={blockId} className="input-label-block">
-      <label htmlFor={inputId}>{labelName}</label>
+    <InputElementBlock
+      blockId={blockId}
+      inputId={inputId}
+      labelName={labelName}
+    >
       <input
         type="email"
         name={inputId}
@@ -32,7 +36,7 @@ export default function EmailInputBlock({
         autoComplete="off"
         required
       />
-    </div>
+    </InputElementBlock>
   );
 }
 
