@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import TextInputBlock from "./TextInputBlock/TextInputBlock";
 import EmailInputBlock from "./EmailInputBlock/EmailInputBlock";
@@ -7,6 +7,7 @@ import UserAgreementBlock from "./UserAgreementBlock";
 import SubmitButtonBlock from "./SubmitButtonBlock";
 
 export default function SignUpForm() {
+  const passwordRef = useRef(null);
   return (
     <form id="sign-up-form">
       <TextInputBlock
@@ -36,6 +37,7 @@ export default function SignUpForm() {
         labelName="Password"
         placeholder="***********"
         tabIndex="4"
+        fromParentRef={passwordRef}
        />
       <PasswordInputBlock
         blockId="repeat-password-block"
@@ -43,6 +45,7 @@ export default function SignUpForm() {
         labelName="Repeat Password"
         placeholder="***********"
         tabIndex="5"
+        passwordRef={passwordRef}
        />
       <UserAgreementBlock />
       <SubmitButtonBlock />

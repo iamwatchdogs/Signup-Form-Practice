@@ -6,13 +6,15 @@ export default function PasswordInputBlock({
   labelName,
   placeholder,
   tabIndex,
+  fromParentRef,
+  passwordRef
 }) {
   const [value, setValue] = useState("");
-  const ref = useRef(null);
+  const ref = fromParentRef || useRef(null);
 
   useEffect(() => {
     const currentElement = ref.current;
-    const errorMessage = getErrorMessage(value);
+    const errorMessage = getErrorMessage(value, passwordRef);
     currentElement.setCustomValidity(errorMessage);
     currentElement.reportValidity();
   }, [value]);
@@ -36,7 +38,14 @@ export default function PasswordInputBlock({
   );
 }
 
-function getErrorMessage(value) {
+function getErrorMessage(value, passwordRef) {
+  if(passwordRef && passwordRef.current) {
+    if(passwordRef.current.value !== value) {
+      return "The Password doesn't match";
+    }
+    return "";
+  }
+
   if(value.length === 0) {
     return "Please fill out this field";
   } else if (!/[A-Z]/.test(value)) {
