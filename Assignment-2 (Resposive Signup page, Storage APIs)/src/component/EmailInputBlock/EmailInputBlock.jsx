@@ -12,15 +12,7 @@ export default function EmailInputBlock({
 
   useEffect(() => {
     const currentElement = ref.current;
-    let errorMessage = "";
-    const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if(value.trim().length === 0){
-      errorMessage = "Please fill out this field";
-    } else if (!value.includes("@")) {
-      errorMessage = `Please include an @ in your email. "${value}" doesn't have an @`;
-    } else if (!EMAIL_PATTERN.test(value)) {
-      errorMessage = "Please enter a valid email.";
-    }
+    const errorMessage = getErrorMessage(value);
     currentElement.setCustomValidity(errorMessage);
     currentElement.reportValidity();
   }, [value]);
@@ -42,4 +34,16 @@ export default function EmailInputBlock({
       />
     </div>
   );
+}
+
+function getErrorMessage(value) {
+  const EMAIL_PATTERN = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  if (value.trim().length === 0) {
+    return "Please fill out this field";
+  } else if (!value.includes("@")) {
+    return `Please include an @ in your email. "${value}" doesn't have an @`;
+  } else if (!EMAIL_PATTERN.test(value)) {
+    return "Please enter a valid email.";
+  }
+  return "";
 }

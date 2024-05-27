@@ -12,9 +12,8 @@ export default function TextInputBlock({
 
   useEffect(() => {
     const currentElement = ref.current;
-    currentElement.setCustomValidity(
-      value.trim().length === 0 ? "Please Provide a valid Input" : ""
-    );
+    const errorMessage = getErrorMessage(value);
+    currentElement.setCustomValidity(errorMessage);
     currentElement.reportValidity();
   }, [value]);
 
@@ -35,4 +34,8 @@ export default function TextInputBlock({
       />
     </div>
   );
+}
+
+function getErrorMessage(value) {
+  return value.trim().length === 0 ? "Please fill out this field" : "";
 }
