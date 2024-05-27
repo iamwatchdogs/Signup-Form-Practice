@@ -1,94 +1,51 @@
 import React from "react";
 
+import TextInputBlock from "./TextInputBlock/TextInputBlock";
+import EmailInputBlock from "./EmailInputBlock/EmailInputBlock";
+import PasswordInputBlock from "./PasswordInputBlock/PasswordInputBlock";
+import UserAgreementBlock from "./UserAgreementBlock";
+import SubmitButtonBlock from "./SubmitButtonBlock";
+
 export default function SignUpForm() {
   return (
     <form id="sign-up-form">
-      <div id="full-name-block" class="input-label-block">
-        <label for="full-name">Full Name</label>
-        <input
-          type="text"
-          name="full-name"
-          id="full-name"
-          placeholder="Name..."
-          tabindex="1"
-          autocomplete="off"
-          required
-        />
-      </div>
-      <div id="email-block" class="input-label-block">
-        <label for="email">Email</label>
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="Email..."
-          autocomplete="off"
-          tabindex="2"
-          required
-        />
-      </div>
-      <div id="username-block" class="input-label-block">
-        <label for="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          id="username"
-          placeholder="Username..."
-          autocomplete="off"
-          tabindex="3"
-          required
-        />
-      </div>
-      <div id="password-block" class="input-label-block">
-        <label for="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="***********"
-          autocomplete="off"
-          tabindex="4"
-          required
-        />
-      </div>
-      <div id="repeat-password-block" class="input-label-block">
-        <label for="repeat-password">Repeat Password</label>
-        <input
-          type="password"
-          name="repeat-password"
-          id="repeat-password"
-          placeholder="***********"
-          autocomplete="off"
-          tabindex="5"
-          required
-        />
-      </div>
-      <div id="user-agreement-block">
-        <input
-          type="checkbox"
-          id="user-agreement"
-          name="user-agreement"
-          tabindex="6"
-          required
-        />
-        <label for="user-agreement">
-          I agree to
-          <a href="#" title="terms and conditions">
-            <b>Terms of User</b>
-          </a>
-          .
-        </label>
-      </div>
-      <div id="submit-block">
-        <button type="submit" id="submit" tabindex="7" required>
-          Sign Up
-        </button>
-        <p>
-          <a href="#" title="signup">
-            Sign in →
-          </a>
-        </p>
-      </div>
+      <TextInputBlock
+        blockId="full-name-block"
+        inputId="full-name"
+        labelName="Full Name"
+        placeholder="Name..."
+        tabIndex="1"
+      />
+      <EmailInputBlock
+        blockId="email-block"
+        inputId="email"
+        labelName="Email"
+        placeholder="Email..."
+        tabIndex="2"
+      />
+      <TextInputBlock
+        blockId="username-block"
+        inputId="username"
+        labelName="Username"
+        placeholder="Username..."
+        tabIndex="3"
+      />
+      <PasswordInputBlock
+        blockId="password-block"
+        inputId="password"
+        labelName="Password"
+        placeholder="***********"
+        tabIndex="4"
+       />
+      <PasswordInputBlock
+        blockId="repeat-password-block"
+        inputId="repeat-password"
+        labelName="Repeat Password"
+        placeholder="***********"
+        tabIndex="5"
+       />
+      <UserAgreementBlock />
+      <SubmitButtonBlock />
     </form>
   );
 }
