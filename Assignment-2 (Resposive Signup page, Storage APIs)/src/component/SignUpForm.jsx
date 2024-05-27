@@ -20,6 +20,7 @@ export default function SignUpForm() {
         labelName="Full Name"
         placeholder="Name..."
         tabIndex="1"
+        autoFocus
       />
       <EmailInputBlock
         blockId="email-block"

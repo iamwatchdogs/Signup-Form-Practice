@@ -40,6 +40,6 @@ export default async function addToLocalStorage(data) {
     }
   
     localStorage.setItem("data", inputDataStringified);
-    alert(`Added to Local Storage: ${localStorage.getItem("data")}`);
+    alert(`Added to Local Storage: \n${JSON.stringify(JSON.parse(localStorage.getItem("data")), null, 2)}`);
   }
   

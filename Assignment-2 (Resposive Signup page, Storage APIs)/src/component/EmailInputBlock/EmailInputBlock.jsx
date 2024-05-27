@@ -14,7 +14,6 @@ export default function EmailInputBlock({
     const currentElement = ref.current;
     const errorMessage = getErrorMessage(value);
     currentElement.setCustomValidity(errorMessage);
-    currentElement.reportValidity();
   }, [value]);
 
   return (
@@ -27,6 +26,7 @@ export default function EmailInputBlock({
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onFocus={() => ref.current.reportValidity()}
         placeholder={placeholder}
         tabIndex={tabIndex}
         autoComplete="off"

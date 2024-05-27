@@ -14,7 +14,6 @@ export default function TextInputBlock({
     const currentElement = ref.current;
     const errorMessage = getErrorMessage(value);
     currentElement.setCustomValidity(errorMessage);
-    currentElement.reportValidity();
   }, [value]);
 
   return (
@@ -27,6 +26,7 @@ export default function TextInputBlock({
         value={value}
         ref={ref}
         onChange={(e) => setValue(e.target.value)}
+        onFocus={() => ref.current.reportValidity()}
         placeholder={placeholder}
         tabIndex={tabIndex}
         autoComplete="off"

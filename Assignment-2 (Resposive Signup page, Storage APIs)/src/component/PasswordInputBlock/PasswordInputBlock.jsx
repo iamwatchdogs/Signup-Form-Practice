@@ -16,7 +16,6 @@ export default function PasswordInputBlock({
     const currentElement = ref.current;
     const errorMessage = getErrorMessage(value, passwordRef);
     currentElement.setCustomValidity(errorMessage);
-    currentElement.reportValidity();
   }, [value]);
 
   return (
@@ -29,6 +28,7 @@ export default function PasswordInputBlock({
         ref={ref}
         value={value}
         onChange={(e) => setValue(e.target.value)}
+        onFocus={() => ref.current.reportValidity()}
         placeholder={placeholder}
         tabIndex={tabIndex}
         autoComplete="off"
