@@ -6,10 +6,14 @@ import PasswordInputBlock from "./PasswordInputBlock/PasswordInputBlock";
 import UserAgreementBlock from "./UserAgreementBlock";
 import SubmitButtonBlock from "./SubmitButtonBlock";
 
+import addToCookies from "../utils/addToCookies";
+import addToLocalStorage from "../utils/addToLocalStorage";
+import updateTheExternalFile from "../utils/updateExternalFile";
+
 export default function SignUpForm() {
   const passwordRef = useRef(null);
   return (
-    <form id="sign-up-form">
+    <form id="sign-up-form" onSubmit={handleSubmit}>
       <TextInputBlock
         blockId="full-name-block"
         inputId="full-name"
@@ -38,7 +42,7 @@ export default function SignUpForm() {
         placeholder="***********"
         tabIndex="4"
         fromParentRef={passwordRef}
-       />
+      />
       <PasswordInputBlock
         blockId="repeat-password-block"
         inputId="repeat-password"
@@ -46,9 +50,22 @@ export default function SignUpForm() {
         placeholder="***********"
         tabIndex="5"
         passwordRef={passwordRef}
-       />
+      />
       <UserAgreementBlock />
       <SubmitButtonBlock />
     </form>
   );
+}
+
+async function handleSubmit(event) {
+  event.preventDefault();
+
+  const targetElement = event.target;
+  console.log(event);
+  const formData = new FormData(targetElement);
+  const data = Object.fromEntries(formData);
+
+  addToCookies(data);
+  await addToLocalStorage(data);
+  await updateTheExternalFile(data);
 }
