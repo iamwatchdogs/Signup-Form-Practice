@@ -26,20 +26,25 @@ function compareWithCurrent(inputData) {
 }
 
 export default async function addToLocalStorage(data) {
-    if (!data) {
-      throw new Error("invalid data object");
-    }
-
-    const dataEntries = Object.entries(data);
-    const dataWithHashedPasswords = await hashAllPasswords(dataEntries);
-  
-    const inputDataStringified = JSON.stringify(dataWithHashedPasswords);
-    if (compareWithCurrent(inputDataStringified)) {
-      alert("There is no change in previously entered data");
-      return;
-    }
-  
-    localStorage.setItem("data", inputDataStringified);
-    alert(`Added to Local Storage: \n${JSON.stringify(JSON.parse(localStorage.getItem("data")), null, 2)}`);
+  if (!data) {
+    throw new Error("invalid data object");
   }
-  
+
+  const dataEntries = Object.entries(data);
+  const dataWithHashedPasswords = await hashAllPasswords(dataEntries);
+
+  const inputDataStringified = JSON.stringify(dataWithHashedPasswords);
+  if (compareWithCurrent(inputDataStringified)) {
+    alert("There is no change in previously entered data");
+    return;
+  }
+
+  localStorage.setItem("data", inputDataStringified);
+  alert(
+    `Added to Local Storage: \n${JSON.stringify(
+      JSON.parse(localStorage.getItem("data")),
+      null,
+      2
+    )}`
+  );
+}
