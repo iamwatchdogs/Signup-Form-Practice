@@ -1,5 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
+
 import InputElementBlock from "../InputElementBlock/InputElementBlock";
+import InputElement from "../InputElements/InputElement";
+
+function ConvertToTextElement(PlainInputElement) {
+  function getErrorMessage(value) {
+    return value.trim().length === 0 ? "Please fill out this field" : "";
+  }
+  const TextInputElement = (props) => {
+    return (
+      <PlainInputElement type="text" {...{ getErrorMessage }} {...props} />
+    );
+  };
+  return TextInputElement;
+}
 
 export default function TextInputBlock({
   blockId,
@@ -7,15 +21,9 @@ export default function TextInputBlock({
   labelName,
   placeholder,
   tabIndex,
+  autoFocus,
 }) {
-  const [value, setValue] = useState("");
-  const ref = useRef(null);
-
-  useEffect(() => {
-    const currentElement = ref.current;
-    const errorMessage = getErrorMessage(value);
-    currentElement.setCustomValidity(errorMessage);
-  }, [value]);
+  const TextInputElement = ConvertToTextElement(InputElement);
 
   return (
     <InputElementBlock
@@ -23,23 +31,7 @@ export default function TextInputBlock({
       inputId={inputId}
       labelName={labelName}
     >
-      <input
-        type="text"
-        name={inputId}
-        id={inputId}
-        value={value}
-        ref={ref}
-        onChange={(e) => setValue(e.target.value)}
-        onFocus={() => ref.current.reportValidity()}
-        placeholder={placeholder}
-        tabIndex={tabIndex}
-        autoComplete="off"
-        required
-      />
+      <TextInputElement {...{ inputId, placeholder, tabIndex, autoFocus }} />
     </InputElementBlock>
   );
-}
-
-function getErrorMessage(value) {
-  return value.trim().length === 0 ? "Please fill out this field" : "";
 }
