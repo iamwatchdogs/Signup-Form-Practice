@@ -15,10 +15,6 @@ window.onload = () => {
     addToLocalStorage(data);
     updateTheExternalFile(data);
   }
-<<<<<<< HEAD
-
-=======
->>>>>>> b7e512b (initial approach)
   // Validator
   function validator(event) {
     // validation for Texting input
@@ -152,15 +148,7 @@ window.onload = () => {
   // Adding submit event listener
   const form = document.getElementById("sign-up-form");
   Object.values(form).forEach((elem) => {
-<<<<<<< HEAD
-    if (
-      elem.value.length === 0 &&
-      !(elem.type === "checkbox" || elem.type === "submit")
-    )
-      elem.setCustomValidity("Input is empty");
-=======
     if (elem.value.length === 0) elem.setCustomValidity("Input is empty");
->>>>>>> b7e512b (initial approach)
   });
   form.addEventListener("submit", handleSubmission);
   form.addEventListener("input", validator);

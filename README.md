@@ -1,5 +1,15 @@
 # Signup Page (Practise)
 
+<div align="center">
+
+![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-0078d7.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+
+</div>
+
+
 A sample sign-up page was created while practicing a few concepts in HTML, CSS and JavaScript. This is a typical submission form that has minimum responsiveness with totally different functionality.
 
 ## Motivation
@@ -61,3 +71,8 @@ Through this implementation, I was able to learn the following concept from this
     - `FileSystemWritableFileStream.write`
     - `FileSystemWritableFileStream.close`
 - Functional Programming
+
+## Output
+
+![output](https://github.com/user-attachments/assets/406a570f-891a-4aa4-b524-0201cea09b0b)
+
