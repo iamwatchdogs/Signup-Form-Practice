@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@validation/*": ["./scripts/form/validation/*"],
+      "@form/*": ["./scripts/form/*"],
+      "@storage/*": ["./scripts/storage/*"],
+      "@external/*": ["./scripts/external/*"]
+    }
+  }
+}
