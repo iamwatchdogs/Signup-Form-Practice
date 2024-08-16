@@ -1,4 +1,4 @@
-# Signup Page (Practise)
+# Signup Page (Practise) <img src="https://github.com/iamwatchdogs/Signup-Form-Practice/actions/workflows/static.yml/badge.svg" alt="deployment status" align="right">
 
 <div align="center">
 
