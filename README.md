@@ -6,6 +6,7 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Webpack](https://img.shields.io/badge/webpack-%238DD6F9.svg?style=for-the-badge&logo=webpack&logoColor=black)
 ![Babel](https://img.shields.io/badge/Babel-F9DC3e?style=for-the-badge&logo=babel&logoColor=black)
 ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
@@ -39,6 +40,7 @@ This project was created to practice HTML, CSS and JavaScript concepts while fol
   - Minifiers
   - Babel transpiler
   - ESLint linter
+- React
 - GitHub Actions
 
 ### Functionality
@@ -60,6 +62,7 @@ Note that the whole JavaScript source code is implemented within an anonymous ca
 
 - [`v0.0.0`](https://github.com/iamwatchdogs/Signup-Form-Practice/releases/tag/v0.0.0 "goto releases") - Basic implementation of signup page with HTML, CSS and JavaScript.
 - [`v1.0.0`](https://github.com/iamwatchdogs/Signup-Form-Practice/releases/tag/v1.0.0 "goto releases") - More sophisticated implementation to overcome some of the edge cases and concerns. _(visually and functionally no diff for output)_
+- [`v2.0.0`](https://github.com/iamwatchdogs/Signup-Form-Practice/release/tag/v2.0.0 "goto releases") - Migration of Javascript application into React application. Less concerned about edge cases, focused more on migration. _(visually and functionally no diff for output)_
 
 ## Learning outcomes
 
@@ -97,6 +100,10 @@ Through this implementation, I was able to learn the following concept from this
 - Modular Programming
 - Dependencies
 - Bundler configuration
+- Linter configuration
+- React
+  - Configuration
+  - Hooks
 - GitHub Action _(CI/CD)_
 
 ## Output

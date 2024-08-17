@@ -1,4 +1,3 @@
-// Updates an external file selected by the user
 export default async function updateTheExternalFile(data) {
   try {
     const fileHandle = await window.showSaveFilePicker();
