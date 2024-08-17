@@ -8,13 +8,13 @@ export default function InputElement({
   ...props
 }) {
   const [value, setValue] = useState("");
-  const refElement = fromParentRef || useRef(null);
+  const refElement = useRef(fromParentRef?.current || null);
 
   useEffect(() => {
     const currentElement = refElement.current;
     const errorMessage = getErrorMessage(value, passwordRef);
     currentElement.setCustomValidity(errorMessage);
-  }, [value]);
+  }, [getErrorMessage, passwordRef, refElement, value]);
 
   return (
     <input
