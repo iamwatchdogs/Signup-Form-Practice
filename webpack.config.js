@@ -15,7 +15,7 @@ module.exports = (env, argv) => {
       filename: isProduction
         ? "[name].[contenthash].bundle.js"
         : "index.bundle.js",
-      clean: true, // clean the output directory before every build
+      clean: true,
     },
     resolve: {
       extensions: ["*", ".js", ".jsx"],
